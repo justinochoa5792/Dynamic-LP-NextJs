@@ -2,7 +2,6 @@ import { gql, GraphQLClient, GrapQLClient } from "graphql-request";
 import CourseSection from "../components/CourseSection";
 
 export default function Home({ course }) {
-  console.log(course);
   return (
     <div className="">
       {course.courseDetail.map((section) => (
@@ -26,6 +25,45 @@ const query = gql`
           buttonText
           description
           id
+        }
+        ... on CalloutRecord {
+          __typename
+          bigTitle
+          smallTitle
+          description
+          id
+          image {
+            url
+            width
+            height
+          }
+        }
+        ... on LearningSectionRecord {
+          __typename
+          hoursOfContent
+          numberOfLessons
+          title
+          id
+          learningPoint {
+            title
+            id
+          }
+        }
+        ... on PricingSectionRecord {
+          __typename
+          title
+          id
+          pricingCards {
+            isFree
+            priceInCents
+            priceSuffix
+            title
+            id
+            description
+            finePrint
+            featured
+            buttonText
+          }
         }
       }
     }
